@@ -1,11 +1,11 @@
 #pragma once
 
-// Include api.hpp
-// Includes (cm2 > faktum)
+// Include current api.hpp
+// Includes (cm2 -> faktum)
 
 
 
-// Forward declarations (cm2 > faktum)
+// Forward declarations (cm2 -> faktum)
 
 
 class Class {
@@ -36,11 +36,11 @@ public:
 
 protected:
 
-	// *
+	// ...
 
 private:
 
-	// *
+	// ...
 
 };
 *_SIZE_GUARD(Class, 0x1);

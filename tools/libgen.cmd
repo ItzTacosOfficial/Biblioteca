@@ -20,30 +20,35 @@ rem Check arguments
 if "%~1" equ "" (
 	goto usage
 ) else if not exist "%1" (
-	echo Input path does not exist
+	echo DLL path does not exist
 	goto error
 )
 
 if "%~2" equ "" (
 	goto usage
+) else if not exist "%2/" (
+	echo Output directory does not exist
+	goto error
+)
+
+if "%~3" equ "" (
+	goto usage
 ) else (
-	set "machine=%~2"
+	set "machine=%~3"
 )
 
 
 rem Set up paths
 
-set "lib=%~dpn1.lib"
-set "dump=%~dpn1.dump"
-set "def=%~dpn1.def"
-set "exp=%~dpn1.exp"
-set "und=%~dpn1.und"
+set "lib=%2/%~n1.lib"
+set "dump=%2/%~n1.dump"
+set "def=%2/%~n1.def"
+set "exp=%2/%~n1.exp"
 
 if exist "%lib%"	del %lib%
 if exist "%dump%"	del %dump%
 if exist "%def%"	del %def%
 if exist "%exp%"	del %exp%
-if exist "%und%"	del %und%
 
 
 rem Dump binary exports
@@ -51,7 +56,7 @@ rem Dump binary exports
 dumpbin /exports %1 > %dump%
 
 if %errorlevel% neq 0 (
-	echo Tool dumpbin failed
+	echo Error at dumpbin.exe
 	goto error
 )
 
@@ -84,7 +89,7 @@ rem Generate lib
 lib /nologo /machine:%machine% "/def:%def%" "/out:%lib%" >nul
 
 if %errorlevel% neq 0 (
-	echo Tool lib failed
+	echo Error at lib.exe
 	goto error
 )
 
@@ -97,7 +102,7 @@ exit /b 0
 :usage
 
 echo Invalid arguments
-echo Usage: libgen.cmd ^<Input^> <Machine>
+echo Usage: libgen.cmd ^<DLL Path^> ^<Output Directory^> ^<Machine^>
 
 
 :error

@@ -13,12 +13,6 @@
 
 # Binaries
 /bin/*
-!/bin/faktum
-!/bin/cm2
-/bin/faktum/*
-/bin/cm2/*
-!/bin/faktum/faktum.dll.sha256
-!/bin/cm2/cm2.dll.sha256
 
 # Tools
 /tools/*
